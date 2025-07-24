@@ -27,9 +27,6 @@ body {
 #app {
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
   min-width: 100%;
   min-height: 100%;
   padding: 2rem;
@@ -60,4 +57,10 @@ body {
 
   background-color: hsla(0, 8%, 50%, 0.25);
   border-radius: 50%;
+}
+
+#maze {
+  position: relative;
+  display: grid;
+  flex-grow: 1;
 }
