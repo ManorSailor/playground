@@ -1,0 +1,21 @@
+{
+  "name": "langchain-rag",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "test": "dotenvx run --quiet -- tsx ./src/main.ts"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.51.4",
+    "@langchain/core": "^1.1.15",
+    "@langchain/ollama": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.9",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
