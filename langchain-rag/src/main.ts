@@ -1,6 +1,9 @@
-import type { MessageFieldWithRole } from "@langchain/core/messages";
-import { askLLM } from "./llm.js";
-import { readFromCLI } from "./cli.js";
+import type {
+  AIMessageChunk,
+  MessageFieldWithRole,
+} from "@langchain/core/messages";
+import { askLLMStream } from "./llm.js";
+import { readFromCLI, streamToStdOut } from "./cli.js";
 import { SYSTEM_PROMPT } from "./core.js";
 
 const sessionHistory: MessageFieldWithRole[] = [SYSTEM_PROMPT];
@@ -14,13 +17,18 @@ async function onUserInput(query: string) {
   const humanMsg: MessageFieldWithRole = { role: "human", content: query };
   sessionHistory.push(humanMsg);
 
-  const aiRes = await askLLM(sessionHistory);
-  const aiMsg: MessageFieldWithRole = { role: "ai", content: aiRes.content };
+  const aiResStream = await askLLMStream(sessionHistory);
+
+  const aiText = await streamToStdOut<typeof aiResStream, AIMessageChunk>(
+    aiResStream,
+    (c) => c.text,
+    { padStartChunk: "\nAI> " }
+  );
+
+  const aiMsg: MessageFieldWithRole = { role: "ai", content: aiText };
   sessionHistory.push(aiMsg);
 
-  console.log("")
-  console.log("AI> ", aiMsg.content)
-  console.log("")
+  console.log("");
 }
 
 readFromCLI(onUserInput);
