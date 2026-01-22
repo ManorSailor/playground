@@ -2,7 +2,7 @@ import type {
   AIMessageChunk,
   MessageFieldWithRole,
 } from "@langchain/core/messages";
-import { askLLMStream } from "./llm.js";
+import { askLLMStream, getVectorStore } from "./llm.js";
 import { readFromCLI, streamToStdOut } from "./cli.js";
 import { SYSTEM_PROMPT } from "./core.js";
 
@@ -14,18 +14,28 @@ async function onUserInput(query: string) {
     return;
   }
 
-  const humanMsg: MessageFieldWithRole = { role: "human", content: query };
+  const store = await getVectorStore();
+  const context = await store.similaritySearch(query);
+
+  const toolContext = context
+    .map((c) => `Source: ${c.metadata.source}\nContext: ${c.pageContent}\n`)
+    .join("\n");
+
+  const humanMsg: MessageFieldWithRole = {
+    role: "human",
+    content: `${toolContext}Question: ${query}`,
+  };
   sessionHistory.push(humanMsg);
 
   const aiResStream = await askLLMStream(sessionHistory);
 
-  const aiText = await streamToStdOut<typeof aiResStream, AIMessageChunk>(
+  const streamedText = await streamToStdOut<typeof aiResStream, AIMessageChunk>(
     aiResStream,
     (c) => c.text,
-    { padStartChunk: "\nAI> " }
+    { padStartChunk: "\nAI> " },
   );
 
-  const aiMsg: MessageFieldWithRole = { role: "ai", content: aiText };
+  const aiMsg: MessageFieldWithRole = { role: "ai", content: streamedText };
   sessionHistory.push(aiMsg);
 
   console.log("");

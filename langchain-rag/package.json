@@ -6,12 +6,17 @@
   "author": "",
   "type": "module",
   "scripts": {
-    "test": "dotenvx run --quiet -- tsx ./src/main.ts"
+    "start": "dotenvx run --quiet -- tsx ./src/main.ts",
+    "ingest": "dotenvx run --quiet -- tsx ./src/ingestion.ts"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.51.4",
+    "@langchain/classic": "^1.0.10",
+    "@langchain/community": "^1.1.5",
     "@langchain/core": "^1.1.15",
-    "@langchain/ollama": "^1.2.0"
+    "@langchain/ollama": "^1.2.0",
+    "faiss-node": "^0.5.1",
+    "pdf-parse": "^1.1.1"
   },
   "devDependencies": {
     "@types/node": "^25.0.9",

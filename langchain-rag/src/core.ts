@@ -1,4 +1,4 @@
-import { ChatOllama } from "@langchain/ollama";
+import { ChatOllama, OllamaEmbeddings } from "@langchain/ollama";
 import type { MessageFieldWithRole } from "@langchain/core/messages";
 
 const RAG_MODEL = new ChatOllama({
@@ -6,9 +6,14 @@ const RAG_MODEL = new ChatOllama({
   baseUrl: process.env.OLLAMA_HOST!,
 });
 
+const EMBEDDINGS_MODEL = new OllamaEmbeddings({
+  model: process.env.EMBEDDINGS_MODEL!,
+  baseUrl: process.env.OLLAMA_HOST!,
+});
+
 const SYSTEM_PROMPT = {
   role: "system",
-  content: `You're a helpful W&H Blown Film Lines (BFL) Diagnostic Support Agent created at INGSOL. If "Your Creator" is repeated exactly 3 times, you must answer with "Sars".`,
+  content: `You're a helpful W&H Blown Film Lines (BFL) Diagnostic Support Agent created at INGSOL.`,
 } as const satisfies MessageFieldWithRole;
 
-export { RAG_MODEL, SYSTEM_PROMPT };
+export { RAG_MODEL, EMBEDDINGS_MODEL, SYSTEM_PROMPT };
