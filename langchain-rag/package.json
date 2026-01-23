@@ -6,7 +6,8 @@
   "author": "",
   "type": "module",
   "scripts": {
-    "start": "dotenvx run --quiet -- tsx ./src/main.ts",
+    "cli": "dotenvx run --quiet -- tsx ./src/main.ts",
+    "server": "dotenvx run --quiet -- tsx ./src/server.ts",
     "ingest": "dotenvx run --quiet -- tsx ./src/ingestion.ts"
   },
   "dependencies": {
@@ -16,11 +17,14 @@
     "@langchain/core": "^1.1.15",
     "@langchain/ollama": "^1.2.0",
     "faiss-node": "^0.5.1",
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "@hono/node-server": "^1.19.9",
+    "hono": "^4.11.5"
   },
   "devDependencies": {
     "@types/node": "^25.0.9",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
-  }
+  },
+  "packageManager": "pnpm@10.18.0+sha512.e804f889f1cecc40d572db084eec3e4881739f8dec69c0ff10d2d1beff9a4e309383ba27b5b750059d7f4c149535b6cd0d2cb1ed3aeb739239a4284a68f40cfa"
 }
