@@ -1,5 +1,5 @@
 import { FaissStore } from "@langchain/community/vectorstores/faiss";
-import { EMBEDDINGS_MODEL, RAG_MODEL } from "./core.js";
+import { EMBEDDINGS_MODEL, JSON_TO_TEXT_MODEL, RAG_MODEL } from "./core.js";
 import type { MessageFieldWithRole } from "@langchain/core/messages";
 
 async function askLLM(conversation: MessageFieldWithRole[]) {
@@ -14,4 +14,8 @@ async function getVectorStore() {
   return FaissStore.load("src/data/store", EMBEDDINGS_MODEL);
 }
 
-export { askLLM, askLLMStream, getVectorStore };
+async function askLLMToConvertJsonToText(prompt: string) {
+  return JSON_TO_TEXT_MODEL.invoke(prompt);
+}
+
+export { askLLM, askLLMStream, getVectorStore, askLLMToConvertJsonToText };

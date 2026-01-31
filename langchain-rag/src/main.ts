@@ -2,7 +2,12 @@ import type {
   AIMessageChunk,
   MessageFieldWithRole,
 } from "@langchain/core/messages";
-import { askLLM, askLLMStream, getVectorStore } from "./llm.js";
+import {
+  askLLM,
+  askLLMStream,
+  askLLMToConvertJsonToText,
+  getVectorStore,
+} from "./llm.js";
 import { readFromCLI, streamToStdOut } from "./cli.js";
 import { SYSTEM_PROMPT } from "./core.js";
 
@@ -86,4 +91,64 @@ async function askUserQuery(query: string): Promise<AIMessageResponse> {
   };
 }
 
-export { askUserQuery, type UserPrompt, type AIMessageResponse };
+async function rewriteJsonToText(ruleJson: string): Promise<string> {
+  const prompt = `Convert the following diagnostic rule JSON into controlled expert text
+using EXACTLY the structure below.
+
+--- OUTPUT STRUCTURE ---
+
+Diagnostic Rule ID: <rule_id>
+
+This diagnostic rule applies to <machine_category> machines on the <oem> <platform> platform.
+The affected machine module is <machine>, specifically <sub_module>.
+
+Observed symptom:
+<symptoms>
+
+Applicable when the following conditions are present:
+<conditions.present>
+
+Apply only if the following conditions are absent:
+<conditions.absent>
+
+Unchanged conditions:
+<conditions.unchanged>
+
+Primary likely cause:
+<likely_causes[priority=1]>
+
+Secondary possible causes:
+<likely_causes[priority=2,3]>
+
+Verification test:
+<Action: verification_test.action>
+<Observation window: verification_test.observation_window>
+
+Confirmation signal:
+<verification_test.confirmation_signal>
+
+Disconfirmation signal:
+<verification_test.disconfirmation_signal>
+
+Next decision path:
+<next_decision_path>
+
+Confidence level:
+<confidence_level>
+
+--- JSON INPUT ---
+${JSON.stringify(ruleJson, null, 2)}
+`;
+
+  const text = await askLLMToConvertJsonToText(prompt);
+  console.log("Text :",text.content);
+  
+  return text.text;
+}
+
+export {
+  askUserQuery,
+  rewriteJsonToText,
+  type UserPrompt,
+  type AIMessageResponse,
+};
