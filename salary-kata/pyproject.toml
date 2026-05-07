@@ -1,0 +1,18 @@
+[project]
+name = "salary-kata"
+version = "0.1.0"
+description = "Managing salaries. Unpaid."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anyio==4.7.0",
+    "fastapi==0.115.5",
+    "httpx==0.28.0",
+    "pydantic==2.10.3",
+    "pytest==8.3.4",
+    "pytest-asyncio==0.24.0",
+    "ruff>=0.15.8",
+    "sqlalchemy==2.0.36",
+    "ty>=0.0.26",
+    "uvicorn==0.32.1",
+]
