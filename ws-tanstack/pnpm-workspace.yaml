@@ -1,0 +1,21 @@
+packages:
+  - apps/*
+  - packages/*
+allowBuilds:
+  esbuild: true
+  msw: true
+catalog:
+  "@types/node": ^22.19.19
+  "@types/react": ^19.2.15
+  "@types/react-dom": ^19.2.3
+  dotenv: ^17.4.2
+  next-themes: ^0.4.6
+  react: ^19.2.6
+  react-dom: ^19.2.6
+  typescript: ^6.0.3
+  zod: ^4.4.3
+minimumReleaseAgeExclude:
+  - '@tanstack/react-router@1.170.10'
+  - '@tanstack/router-core@1.171.8'
+  - '@tanstack/router-generator@1.167.12'
+  - '@tanstack/router-plugin@1.168.13'
