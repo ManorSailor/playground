@@ -14,12 +14,14 @@
     "cors": "^2.8.6",
     "dotenv": "catalog:",
     "express": "^5.2.1",
+    "ws": "^8.21.0",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "catalog:",
+    "@types/ws": "^8.18.1",
     "@ws-tanstack/config": "workspace:*",
     "tsdown": "^0.21.10",
     "tsx": "^4.22.3",
