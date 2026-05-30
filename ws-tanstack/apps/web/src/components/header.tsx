@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 
+import type { PropsWithChildren } from "react";
 import { ModeToggle } from "./mode-toggle";
 
-export default function Header() {
+export default function Header({ children }: PropsWithChildren) {
   const links = [{ to: "/", label: "Home" }] as const;
 
   return (
@@ -17,7 +18,9 @@ export default function Header() {
             );
           })}
         </nav>
+
         <div className="flex items-center gap-2">
+          {children}
           <ModeToggle />
         </div>
       </div>

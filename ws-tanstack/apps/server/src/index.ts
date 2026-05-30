@@ -22,7 +22,7 @@ const AUTHORIZED_USERS_TO_KEYS = new Map<Username, AuthKey>();
 const AUTHORIZED_KEYS_TO_USERS = new Map<AuthKey, Username>();
 
 app.post("/auth", (req, res) => {
-  const username = req.body.username as Username;
+  const username = req.body?.username as Username | undefined;
 
   if (!username) {
     res.status(400).json({
@@ -138,9 +138,9 @@ function setupWSSPing(wss: WebSocketServer) {
 }
 
 function shutdownWSS(wss: WebSocketServer, pingIntervalId: NodeJS.Timeout) {
-  wss.close();
-
   clearInterval(pingIntervalId);
+
+  wss.close();
 
   wss.clients.forEach((c) => {
     c.close(1001, "WSS server shutting down...");
