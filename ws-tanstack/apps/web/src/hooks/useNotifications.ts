@@ -26,7 +26,7 @@ async function getNotifications(): Promise<NotificationResponse[]> {
 
 function useNotifications(
   config?: Omit<
-    UseQueryOptions<unknown, Error, NotificationResponse>,
+    UseQueryOptions<unknown, Error, NotificationResponse[]>,
     "queryKey"
   >,
 ) {
@@ -38,4 +38,5 @@ function useNotifications(
   });
 }
 
+export type { NotificationResponse as Notification };
 export { useNotifications };

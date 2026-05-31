@@ -3,6 +3,7 @@ import { Button } from "@ws-tanstack/ui/components/button";
 import { useState } from "react";
 import { AuthNControls } from "@/components/authn-controls";
 import Header from "@/components/header";
+import { Notifications } from "@/components/notifications";
 import { useMe } from "@/hooks/useMe";
 
 export const Route = createFileRoute("/")({
@@ -13,11 +14,13 @@ function HomeComponent() {
   const [showNotifications, setShowNotifications] = useState(false);
   const { data: user, isSuccess, error } = useMe({ enabled: false });
 
+  const toggleNotifications = () => setShowNotifications((v) => !v);
+
   return (
-    <div className="h-svh">
+    <div className="h-svh space-y-2">
       <Header>
         <AuthNControls />
-        <Button variant="outline" onClick={() => setShowNotifications(true)}>
+        <Button variant="outline" onClick={toggleNotifications}>
           Show Notifications
         </Button>
       </Header>
@@ -42,6 +45,8 @@ function HomeComponent() {
           {error && <p className="text-destructive italic">{error.message}</p>}
         </section>
       </div>
+
+      {showNotifications && <Notifications />}
     </div>
   );
 }
