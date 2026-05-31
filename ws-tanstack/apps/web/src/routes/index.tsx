@@ -17,7 +17,7 @@ function HomeComponent() {
   const toggleNotifications = () => setShowNotifications((v) => !v);
 
   return (
-    <div className="h-svh space-y-2">
+    <div className="h-svh space-y-4">
       <Header>
         <AuthNControls />
         <Button variant="outline" onClick={toggleNotifications}>
@@ -25,7 +25,7 @@ function HomeComponent() {
         </Button>
       </Header>
 
-      <div className="container mx-auto max-w-3xl px-4 py-2">
+      <div className="mx-auto max-w-3xl">
         <section className="grid gap-1 rounded-lg border p-4">
           <p className="flex gap-2">
             <span>Username:</span>
