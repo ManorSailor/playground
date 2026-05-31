@@ -60,6 +60,21 @@ app.get("/me", (req, res) => {
   });
 });
 
+app.get("/notifications", (req, res) => {
+  const authKey = req.headers.authorization?.replace("Bearer ", "");
+
+  if (!isValidAuthKey(authKey)) {
+    res.status(401).json({
+      message: "Unauthorized. Please authenticate.",
+    });
+    return;
+  }
+
+  res.status(200).json({
+    notifications: [],
+  });
+});
+
 server.on("upgrade", (req, socket, head) => {
   const origin = req.headers.origin;
 
