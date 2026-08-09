@@ -1,0 +1,7 @@
+{
+    "go.goroot": "/home/sars/.local/share/mise/installs/go/1.26.5",
+    "go.alternateTools": {
+        "go": "/home/sars/.local/share/mise/shims/go",
+        "gopls": "/home/sars/.local/share/mise/shims/gopls"
+    }
+}
