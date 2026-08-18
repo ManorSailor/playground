@@ -23,6 +23,9 @@ Go's Functional aspects are limited to:
 Everything is pass by value in Go. This is a design decision taken to ensure Go remains fast. `Pointers` themselves are passed by value, i.e., they are copied, but both copies point to the same object. You can mutate the value at the location but never the pointer - i.e., call-by-sharing or pass-by-value-reference.
 An important distinction is with `map`, `slice` & `chan`. They are all pass-by-value-reference. `slice` is even more special, it passed by value for the slice, but the internal array is still pass-by-value-reference.
 
+> [!NOTE]
+> Pass By Value means that the returned values are merged/copied over to the original memory location.
+
 Functions in `go` do not support optional parameters. In fact, nothing in go can be actually optional. The Go's pattern suggest utilizing struct fields to simulate optional parameters because struct by itself resolves to the `undefined` flavors of its respective type. --- More on this later*
 
 > [!NOTE]
@@ -69,6 +72,12 @@ Internally, slice can be imagined as a struct containing 3 fields:
 - Capacity of the array, i.e., the room or space left for more `append`'s. Note: explicitly defined capacity are not extended without copying to create an entirely new slice.
 
 Creating a slice from an existing slice does *not* create a copy of the internal array. Both slices point to the respective parts of the original array. A new slice is created tho.
+
+Implemented [slice-from-scratch](./11-slices-from-scratch/slice/slice.go) to better understand slices and how memory is managed underneath the hood. I gained the following understanding from it:
+- slicing does NOT affect the original slice, mutating an element in that slice, however, does.
+- implementing all important methods/operations allowed on inbuilt slices.
+- manually managing memory offsets to get to the correct memory address for reading/writing.
+- generic structs & implementing interfaces
 
 ---
 

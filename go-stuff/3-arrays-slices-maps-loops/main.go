@@ -89,6 +89,19 @@ func main() {
 
 	fmt.Printf("int8Slice3: %v; Length: %v; Capacity: %v\n", int8Slice3, len(int8Slice3), cap(int8Slice3))
 
+	// Pass By Value Example:
+	s := make([]int, 0, 1)
+
+	fmt.Printf("%p, %d, %d\n", &s, len(s), cap(s))
+
+	// SAME address. Just merges values at the location.
+	s = append(s, []int{1, 2, 3, 4, 5, 6, 8, 9, 10, 11}...)
+
+	// Different address. Copied.
+	p := s
+
+	fmt.Printf("%p, %p, %d, %d\n", &s, &p, len(s), cap(s))
+
 	fmt.Printf("\n")
 
 	// Onto Maps now.
