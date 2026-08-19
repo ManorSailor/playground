@@ -69,10 +69,10 @@ func main() {
 	customSliced, _ := custom.Slice(1, 4)
 
 	// Notice that the slices share different memory addresses, i.e., they are not the same
-	fmt.Printf("Built-in original: %v, %p\n", builtin, &builtin)
-	fmt.Printf("Built-in sliced: %v, %p\n", builtinSliced, &builtinSliced)
-	fmt.Printf("Custom original: %v, %p\n", custom, &custom)
-	fmt.Printf("Custom sliced: %v, %p\n", customSliced, &customSliced)
+	fmt.Printf("Built-in original: %v; Len: %v; Cap: %v; Memory: %p\n", builtin, len(builtin), cap(builtin), &builtin)
+	fmt.Printf("Built-in sliced: %v; Len: %v; Cap: %v; Memory: %p\n", builtinSliced, len(builtinSliced), cap(builtinSliced), &builtinSliced)
+	fmt.Printf("Custom original: %v; Len: %v; Cap: %v; Memory: %p\n", custom, custom.Length, custom.Capacity, &custom)
+	fmt.Printf("Custom sliced: %v; Len: %v; Cap: %v; Memory: %p\n", customSliced, customSliced.Length, customSliced.Capacity, &customSliced)
 
 	// A slice is a view into an underlying array. Hence, This mutates the original.
 	builtinSliced[0] = 99
@@ -85,8 +85,8 @@ func main() {
 	customSliced, _ = custom.Slice()
 
 	// Notice, they are still DIFFERENT slices
-	fmt.Printf("Built-in original: %v, %p\n", builtin, &builtin)
-	fmt.Printf("Built-in sliced: %v, %p\n", builtinSliced, &builtinSliced)
-	fmt.Printf("Custom original: %v, %p\n", custom, &custom)
-	fmt.Printf("Custom sliced: %v, %p\n", customSliced, &customSliced)
+	fmt.Printf("Built-in original: %v; Len: %v; Cap: %v; Memory: %p\n", builtin, len(builtin), cap(builtin), &builtin)
+	fmt.Printf("Built-in sliced: %v; Len: %v; Cap: %v; Memory: %p\n", builtinSliced, len(builtinSliced), cap(builtinSliced), &builtinSliced)
+	fmt.Printf("Custom original: %v; Len: %v; Cap: %v; Memory: %p\n", custom, custom.Length, custom.Capacity, &custom)
+	fmt.Printf("Custom sliced: %v; Len: %v; Cap: %v; Memory: %p\n", customSliced, customSliced.Length, customSliced.Capacity, &customSliced)
 }

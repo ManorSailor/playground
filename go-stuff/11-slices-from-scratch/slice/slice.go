@@ -128,7 +128,7 @@ func (s *Slice[T]) Slice(bounds ...int) (Slice[T], error) {
 
 	return Slice[T]{
 		Length:   upper - lower,
-		Capacity: s.Capacity,
+		Capacity: s.Capacity - lower,
 		ptr:      ptr,
 	}, nil
 }
