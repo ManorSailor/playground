@@ -168,6 +168,9 @@ Some facts about channels:
 - The onus of closing the channel is on the writer. Go will throw a deadlock error if a channel wasn't closed as the invoking goro (or reader) will keep on waiting for more values to read.
 - Reading from a closed channel returns `undefined` flavor value of the respective type. Writing to a closed channel causes a panic.
 
+Insights:
+- *Closing* a channel is not cleanup. It's communicating to the readers that it will not produce any more values so they can skip. Writers cannot know if the channel being written is closed or not, hence, we use a different channel to communicate it to them that, hey, X channel's readers won't consume any more values as we are closing it. You are free to send to channel, but it will be garbage collected, so you should use the other channel signal to exit out of your writing process.
+
 ---
 
 `select` is Go's equivalent of `switch` for channels. If you've multiple channels open and want to act accordingly when any of them resolves. You opt for `select`. It lets you colocate channel communication logic in a single select body. 
